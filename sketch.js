@@ -1,5 +1,36 @@
-const encoded = lzw_encode("ABCABDENFAB")
-console.log(lzw_decode(encoded))
+
+const encodeBtn = document.getElementById("encode");
+const decodeBtn = document.getElementById("decode");
+const string = document.getElementById("text");
+const output = document.getElementById("response");
+
+encodeBtn.addEventListener('click',function(e){
+
+    let response = string.value.toUpperCase() + " ==> "
+    if(string.value.length != 0){
+
+       response +=   lzw_encode(string.value.toUpperCase())
+        encodeBtn.disabled = true;
+        decodeBtn.disabled = false;
+    }
+
+    else
+        response = "No valid string"
+
+    string.disabled = true;
+   output.innerHTML = response;
+})
+
+decodeBtn.addEventListener('click',function(e){
+    const encoded = lzw_encode(string.value.toUpperCase());
+    const response = encoded + " ==> " + lzw_decode(encoded);
+    output.innerHTML = response; 
+
+    string.disabled = false;
+    decodeBtn.disabled = true;
+    encodeBtn.disabled = false;
+})
+
 
 function lzw_encode(s) {
      var dict = {};
